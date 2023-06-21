@@ -1,0 +1,55 @@
+.progress-wrapper {
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#EBEBEB;
+  }
+  
+.progress {
+  position: relative;
+  border-radius: 50%;
+  transform: rotate(-90deg);
+}
+
+.progress-indicator {
+  position: absolute;
+  stroke: url(#GradientColor);
+  /* animation: anim 15s linear forwards; */
+}
+  
+@keyframes anim {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.progress-inner-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #5A5A5A;
+}
+.progress-inner-content-header {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+}
+.progress-inner-content-time-header {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+}
+.progress-inner-content-time-counter {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 48px;
+}
+.progress-inner-content-icon {
+  margin-top: 32px;
+}
