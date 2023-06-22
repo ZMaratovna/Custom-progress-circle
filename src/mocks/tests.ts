@@ -1,28 +1,8 @@
-export type Test = {
-  id: number;
-  name: string;
-  size: number;
-  done: boolean;
-  processed: number;
-  progress: number;
-  timeToEnd?: number;
-}
+import { IProcess, Status } from "../typings";
 
-export type ProcessingStatus = {
-  done: boolean;
-  progress: number;
-  active?: number; // the id of the test
-  timeToEnd?: Date;
-}
-
-export const tests: Test[] = [
-  { id: 1, name: 'Test1', size: 6000000, processed: 0, progress: 0, done: false},
-  { id: 2, name: 'Test2', size: 6000000, processed: 0, progress: 0, done: false },
-  { id: 3, name: 'Test3', size: 6000000, processed: 0, progress: 0, done: false },
-  { id: 4, name: 'Test4', size: 6000000, processed: 0, progress: 0, done: false },
+export const tests: IProcess[] = [
+  { id: 1, name: 'Test1', totalSize: 200000, handledSize: 0, progress: 0, completed: false, status: Status.pending, timeStarted: 0, timeElapsed: 0},
+  { id: 2, name: 'Test2', totalSize: 200000, handledSize: 0, progress: 0, completed: false, status: Status.pending, timeStarted: 0, timeElapsed: 0 },
+  { id: 3, name: 'Test3', totalSize: 200000, handledSize: 0, progress: 0, completed: false, status: Status.pending, timeStarted: 0, timeElapsed: 0 },
+  { id: 4, name: 'Test4', totalSize: 200000, handledSize: 0, progress: 0, completed: false, status: Status.pending, timeStarted: 0, timeElapsed: 0 },
 ];
-
-export const initialProcessingStatus: ProcessingStatus = {
-  done: false,
-  progress: 0,
-}

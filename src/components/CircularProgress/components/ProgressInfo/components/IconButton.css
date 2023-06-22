@@ -1,0 +1,8 @@
+.progress-card-controls button.icon-button {
+  border-radius: 50%;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 8px;
+}

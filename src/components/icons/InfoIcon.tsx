@@ -1,4 +1,9 @@
-export const InfoIcon = ({size = 35, color = "#909090", className, onClick}: {size?: number, color?: string, onClick: (e: any) => void, className?: string}) => {
+export const InfoIcon = ({
+  size = 35, 
+  color = "#909090", 
+  className, 
+  onClick
+}: {size?: number, color?: string, onClick: (e: any) => void, className?: string}) => {
     const handleClick = (e: any) => {
       e.stopPropagation();
       onClick(e);

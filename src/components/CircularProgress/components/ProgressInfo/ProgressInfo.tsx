@@ -1,16 +1,20 @@
 import { MouseEventHandler, useEffect, useRef } from 'react';
-import { tests } from '../../../../mocks/tests';
 import './ProgressInfo.css';
 import { ProgressCard } from './components';
 
 import './ProgressInfo.css';
+import { IPipeline } from '../../../../typings';
+import { convertMsToTime } from '../../../../utils/convertMsToTime';
 
 interface IProgressInfoProps {
   show: boolean;
+  pipeline: IPipeline;
+  currentExecution: number | null;
 }
 
-export const ProgressInfo = ({show = false}: IProgressInfoProps) => {
+export const ProgressInfo = ({show = false, pipeline, currentExecution}: IProgressInfoProps) => {
   const dialog = useRef<HTMLDialogElement>(null);
+  const currentIndex = pipeline.tests.findIndex((t) => t.id === currentExecution) + 1;
 
   useEffect(() => {
     const panel = dialog.current;
@@ -34,14 +38,20 @@ export const ProgressInfo = ({show = false}: IProgressInfoProps) => {
         <div className="info-dialog-inner">
         <div className="info-dialog-title">Workflow</div>
           <div className="info-dialog-header">
-            <p>Workflow name: xxxx</p>
-            <p>Status: Test 2 of 4</p>
-            <p>Estimated remaining time: 02:30:15</p>
+            <p>Workflow name: {pipeline.name}</p>
+            <p>Status: Test {currentIndex} of {pipeline.tests.length}</p>
+            <p>Estimated remaining time: {convertMsToTime(pipeline.timeElapsed)}</p>
           </div>
           <div className="info-dialog-list-wrapper">
           <div className="info-dialog-list-title">Test</div>
             <div className="info-dialog-list">
-              {tests.map((t) => <ProgressCard key={t.id} info={t}/>)}
+              {pipeline.tests.map((t) => (
+                <ProgressCard
+                  key={t.id}
+                  info={t}
+                  active={currentExecution === t.id}
+                />))
+              }
               </div>
             </div>
           </div>
