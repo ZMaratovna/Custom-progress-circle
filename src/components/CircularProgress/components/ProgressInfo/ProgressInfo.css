@@ -7,10 +7,11 @@
   border: none;
   outline: none;
   padding: 20px;
-  background-color: #EBEBEB;
-  border: 1px solid #EBEBEB;
-  color: #5A5A5A;
+  background-color: #ebebeb;
+  border: 1px solid #ebebeb;
+  color: #5a5a5a;
   overflow: hidden;
+  z-index: 2;
 }
 .info-dialog-inner {
   height: 100%;
@@ -31,7 +32,7 @@
   padding-top: 26px;
   padding-left: 42px;
   padding-bottom: 24px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   height: 133px;
   width: 570px;
   border-radius: 16px;
@@ -47,7 +48,7 @@
   height: 243px;
   width: 570px;
   padding: 10px 5px 13px 21px;
-  background-color: #DEDEDE;
+  background-color: #dedede;
   border-radius: 16px;
 }
 .info-dialog-list {
@@ -58,7 +59,6 @@
   margin-top: 14px;
   overflow-y: auto;
   overflow-x: hidden;
-
 }
 .info-dialog-list-title {
   font-style: normal;
@@ -70,27 +70,24 @@
 /* scrollbar styles */
 
 /* Webkit*/
-.info-dialog-list::-webkit-scrollbar-track
-{
-	border-radius:6px;
-	background-color: #DEDEDE;
+.info-dialog-list::-webkit-scrollbar-track {
+  border-radius: 6px;
+  background-color: #dedede;
 }
 
-.info-dialog-list::-webkit-scrollbar
-{
-	width: 10px;
-	background-color: #DEDEDE;
+.info-dialog-list::-webkit-scrollbar {
+  width: 10px;
+  background-color: #dedede;
 }
 
-.info-dialog-list::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-	background-color: #BEBCBC;
+.info-dialog-list::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #bebcbc;
 }
 
 /* Firefox */
 .info-dialog-list {
   scrollbar-width: thin;
   scrollbar-gutter: stable;
-  scrollbar-color: #BEBCBC #DEDEDE;
+  scrollbar-color: #bebcbc #dedede;
 }

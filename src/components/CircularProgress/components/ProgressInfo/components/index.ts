@@ -1,1 +1,1 @@
-export * from './ProgressCard';
+export * from './ProgressCard'

@@ -1,23 +1,26 @@
-import { IPipeline, IProcess, Status } from "../typings";
+import { IPipeline, IProcess, Status } from '../typings'
 
 function waitForDelay(delay: number) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve("OK");
-    }, delay);
-  });
+      resolve('OK')
+    }, delay)
+  })
 }
 
-export async function* createTestProcessingStream(t: IProcess) {
-  let handledSize = 0;
-  const timeStarted: any = new Date();
+export async function* createTestProcessingStream(
+  t: IProcess,
+): AsyncGenerator<IProcess> {
+  let handledSize = 0
+  const timeStarted: any = new Date()
   while (handledSize < t.totalSize) {
-    handledSize += 100;
-    await waitForDelay(100);
-    const currentTime: any = new Date();
-    const timeElapsed = (t.totalSize / handledSize - 1) * (currentTime - timeStarted); // number of milliseconds
-    const progress = +(handledSize / t.totalSize).toFixed(2);
-    const completed = handledSize === t.totalSize;
+    handledSize += 100
+    await waitForDelay(100)
+    const currentTime: any = new Date()
+    const timeElapsed =
+      (t.totalSize / handledSize - 1) * (currentTime - timeStarted) // number of milliseconds
+    const progress = +(handledSize / t.totalSize).toFixed(2)
+    const completed = handledSize === t.totalSize
     const result = {
       ...t,
       handledSize,
@@ -27,13 +30,15 @@ export async function* createTestProcessingStream(t: IProcess) {
       progress,
       completed,
     }
-    yield result;
+    yield result
   }
 }
 
-export async function* createPipelineStream(p: IPipeline) {
-  const testStreams = p.tests.map((t) => createTestProcessingStream(t));
+export async function* createPipelineStream(
+  p: IPipeline,
+): AsyncGenerator<IProcess> {
+  const testStreams = p.tests.map((t) => createTestProcessingStream(t))
   for await (const stream of testStreams) {
-    yield* stream;
+    yield* stream
   }
 }

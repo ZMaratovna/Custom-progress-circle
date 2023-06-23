@@ -1,1 +1,1 @@
-export * from './ProgressInfo';
+export * from './ProgressInfo'

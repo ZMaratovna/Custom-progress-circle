@@ -1,29 +1,35 @@
-import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import {produce} from "immer";
+/* eslint-disable ordered-imports/ordered-imports */
+/* eslint-disable react/react-in-jsx-scope */
+import { useEffect, useState } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { produce } from 'immer'
 
-import './App.css';
+import './App.css'
 
-import { CircularProgress } from './components/CircularProgress';
-import { ProgressInfo } from './components/CircularProgress/components/ProgressInfo';
-import { pipelineSelector } from './recoil/pipeline';
-import { testsListAtom } from './recoil/tests';
-import { IPipeline } from './typings';
-import { createPipelineStream } from './utils/pipelineCreator';
+import { CircularProgress } from './components/CircularProgress'
+import { ProgressInfo } from './components/CircularProgress/components/ProgressInfo'
+import { pipelineSelector } from './recoil/pipeline'
+import { testsListAtom } from './recoil/tests'
+import { IPipeline, IProcess } from './typings'
+import { createPipelineStream } from './utils/pipelineCreator'
 
-function App() {
-  const [showDetails, setShowDetails] = useState(false); 
-  const [tests, setTests] = useRecoilState(testsListAtom);
-  const pipeline = useRecoilValue(pipelineSelector);
-  const [currentExecutionTest, setCurrentExecutionTest] = useState<number | null>(null);
+function App(): JSX.Element {
+  const [showDetails, setShowDetails] = useState(false)
+  const [tests, setTests] = useRecoilState(testsListAtom)
+  const pipeline = useRecoilValue(pipelineSelector)
+  const [currentExecutionTest, setCurrentExecutionTest] = useState<
+    number | null
+  >(null)
 
   async function startRunningPipeline(pipeline: IPipeline) {
-    const stream = createPipelineStream(pipeline);
+    const stream = createPipelineStream(pipeline)
     for await (const value of stream) {
-      const testIndex = tests.findIndex((t) => t.id === value.id);
-      setTests(produce((prevTests) => {
-        prevTests[testIndex] = value;
-      }));
+      const testIndex = tests.findIndex((t) => t.id === value.id)
+      setTests(
+        produce((prevTests: IProcess[]) => {
+          prevTests[testIndex] = value
+        }),
+      )
       if (currentExecutionTest !== value.id) {
         setCurrentExecutionTest(value.id)
       }
@@ -31,20 +37,22 @@ function App() {
   }
   useEffect(() => {
     if (pipeline?.tests) {
-      startRunningPipeline(pipeline);
+      startRunningPipeline(pipeline)
     }
-  }, []);
+  }, [])
 
   return (
     <>
       <div
         className="App"
-        onClick={() => {setShowDetails(false)}}
+        onClick={() => {
+          setShowDetails(false)
+        }}
       >
         <CircularProgress
           size={400}
           value={Math.floor(pipeline.progress * 100)}
-          indicatorColors={["#e91e63", "#673ab7"]}
+          indicatorColors={['#e91e63', '#673ab7']}
           toggleDetailsVisibility={() => setShowDetails(!showDetails)}
           currentExecution={currentExecutionTest}
           pipeline={pipeline}
@@ -53,7 +61,8 @@ function App() {
       <ProgressInfo
         show={showDetails}
         pipeline={pipeline}
-        currentExecution={currentExecutionTest}/>
+        currentExecution={currentExecutionTest}
+      />
     </>
   )
 }
